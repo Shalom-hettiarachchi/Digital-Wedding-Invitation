@@ -1,69 +1,70 @@
-import Image from "next/image";
+import Intro from "@/components/Intro";
+import Countdown from "@/components/Countdown";
+import Timeline from "@/components/Timeline";
+import PhotoSection from "@/components/PhotoSection";
+import Gallery from "@/components/Gallery";
+import Closing from "@/components/Closing";
+import SectionDivider from "@/components/SectionDivider";
+import { FloralDefs } from "@/components/Florals";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <>
+      <FloralDefs />
+
+      <Intro />
+
+      <Countdown />
+
+      <Timeline />
+
+      <SectionDivider className="pb-[clamp(60px,10vh,120px)]" />
+
+      <PhotoSection
+        src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop"
+        eyebrow="The Details"
+        title="Dress Code"
+      >
+        <p className="text-[#4a4a46] leading-[1.8] mb-3.5 text-[0.98rem]">
+          Semi-formal and elegant. Feel free to add a touch of pastel to match our
+          garden-inspired palette of ivory, sage, and champagne gold.
+        </p>
+        <p className="text-[#4a4a46] leading-[1.8] text-[0.98rem]">
+          Evenings by the coast can turn cool &mdash; a light jacket or wrap is a good idea for
+          the dance floor under the stars.
+        </p>
+      </PhotoSection>
+
+      <PhotoSection
+        src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=1200&auto=format&fit=crop"
+        eyebrow="Location"
+        title="Stay at Obira Castle"
+        reverse
+      >
+        <ul className="list-none">
+          {[
+            ["Accommodation", "Up to 42 guests"],
+            ["Suites", "Elegant & luxury"],
+            ["Included", "Buffet breakfast, pool & garden access"],
+            ["Availability", "Limited — reserve early"],
+            ["Rates", "From $250 / night"],
+          ].map(([label, value]) => (
+            <li
+              key={label}
+              className="flex justify-between gap-4 py-2.5 border-b border-line text-[0.92rem] text-[#4a4a46] max-sm:flex-col max-sm:gap-1 max-sm:items-start"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+              <span className="text-ink tracking-[0.04em]">{label}</span>
+              <span className="max-sm:text-muted max-sm:text-[0.86rem]">{value}</span>
+            </li>
+          ))}
+        </ul>
+      </PhotoSection>
+
+      <SectionDivider className="pt-[clamp(60px,10vh,120px)]" />
+
+      <Gallery />
+
+      <Closing />
+    </>
   );
 }

@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // The dev badge sits on top of the hero's corner frame; errors still surface without it.
+  devIndicators: false,
 };
 
 export default nextConfig;

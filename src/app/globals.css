@@ -1,26 +1,139 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-ink: #1a1a1a;
+  --color-paper: #fafaf8;
+  --color-muted: #8a8a85;
+  --color-line: #d8d6d0;
+  --color-gold: #a98f5c;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: var(--color-ink);
+  --color-paper: var(--color-paper);
+  --color-muted: var(--color-muted);
+  --color-line: var(--color-line);
+  --color-gold: var(--color-gold);
+  --font-serif: "Cormorant Garamond", "Times New Roman", serif;
+  --font-sans: "Jost", system-ui, sans-serif;
+  --font-script: "Pinyon Script", "Cormorant Garamond", cursive;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+/* ---------- Botanical motion ----------
+   Applied to <g> elements inside the floral SVGs. transform-box: view-box makes
+   the --ox/--oy pivot use the SVG's own coordinates, so a branch sways from its base. */
+.sway {
+  transform-box: view-box;
+  transform-origin: var(--ox, 0px) var(--oy, 0px);
+  animation: sway var(--dur, 8s) ease-in-out var(--delay, 0s) infinite;
+  will-change: transform;
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(calc(var(--amp, 2deg) * -1));
+  }
+  50% {
+    transform: rotate(var(--amp, 2deg));
+  }
+}
+
+.breathe {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: breathe var(--dur, 7s) ease-in-out var(--delay, 0s) infinite;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1) rotate(-1.2deg);
+  }
+  50% {
+    transform: scale(1.035) rotate(1.2deg);
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    100deg,
+    var(--color-gold) 0%,
+    var(--color-gold) 38%,
+    #ecdcb4 50%,
+    var(--color-gold) 62%,
+    var(--color-gold) 100%
+  );
+  background-size: 260% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 5.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%,
+  35% {
+    background-position: 100% 0;
+  }
+  75%,
+  100% {
+    background-position: 0% 0;
+  }
+}
+
+/* Florals scrolled out of view stop animating, which keeps long pages smooth on phones. */
+.motion-paused .sway,
+.motion-paused .breathe {
+  animation-play-state: paused;
+}
+
+/* ---------- Music button equalizer ---------- */
+.eq-bar {
+  width: 2px;
+  height: 100%;
+  border-radius: 1px;
+  background: currentColor;
+  transform-origin: bottom;
+  transform: scaleY(0.4);
+  opacity: 0.55;
+}
+
+.eq-bar.eq-on {
+  opacity: 1;
+  animation: eq 1.15s ease-in-out calc(var(--i) * -0.29s) infinite;
+}
+
+@keyframes eq {
+  0%,
+  100% {
+    transform: scaleY(0.25);
+  }
+  30% {
+    transform: scaleY(1);
+  }
+  60% {
+    transform: scaleY(0.5);
+  }
+  80% {
+    transform: scaleY(0.85);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sway,
+  .breathe,
+  .shimmer-text,
+  .eq-bar.eq-on {
+    animation: none;
+  }
 }
